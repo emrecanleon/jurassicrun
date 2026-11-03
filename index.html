@@ -1920,6 +1920,14 @@
           if (isNewRecord) {
             sc.textContent = pad(score);
             sc.classList.remove("hidden");
+            // iPad Mini 2 (no-flex-gap) için puan boyutunu zorla büyüt
+            if (document.documentElement.classList.contains("no-flex-gap")) {
+              sc.style.setProperty("font-size", "clamp(32px, 7vw, 42px)", "important");
+              sc.style.setProperty("display", "block", "important");
+              sc.style.setProperty("line-height", "1.1", "important");
+              sc.style.setProperty("letter-spacing", "4px", "important");
+              sc.style.setProperty("margin", "0 0 16px 0", "important");
+            }
           } else {
             sc.textContent = "";
             sc.classList.add("hidden");
@@ -1932,6 +1940,16 @@
             btn.textContent = "↻";
           } else {
             btn.textContent = "▶";
+          }
+
+          // iPad Mini 2 için buton merkezlemesini zorla
+          if (document.documentElement.classList.contains("no-flex-gap")) {
+            btn.style.setProperty("display", "flex", "important");
+            btn.style.setProperty("align-items", "center", "important");
+            btn.style.setProperty("justify-content", "center", "important");
+            btn.style.setProperty("line-height", "1", "important");
+            btn.style.setProperty("padding", "0", "important");
+            btn.style.setProperty("font-size", "28px", "important");
           }
 
           card.classList.toggle("off", !msgKey);
