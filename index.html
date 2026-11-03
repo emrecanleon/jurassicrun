@@ -227,9 +227,14 @@
 
       /* JurassicRun temalı yuvarlak buton (siyah/beyaz/gri) */
       html.no-flex-gap #cardBtn {
-        display: block !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         margin-top: 16px !important;
         margin-bottom: 0 !important;
+        line-height: 1 !important;
+        font-size: 28px !important;
+        padding: 0 !important;
       }
       
       #cardBtn {
@@ -1057,6 +1062,19 @@
       /* ===== ESKİ CİHAZ: kart içi blok arası güvenli boşluk ===== */
       html.no-flex-gap #card > * + * {
         margin-top: 0 !important; /* Çakışmayı önlemek için sıfırla */
+      }
+      /* ===== ESKİ CİHAZ: kart puanı (büyük görünsün) ===== */
+      html.no-flex-gap #cardScore {
+        display: block !important;
+        font-size: clamp(32px, 7vw, 42px) !important;
+        line-height: 1.1 !important;
+        width: auto !important;
+        max-width: 100% !important;
+        text-align: center !important;
+        margin-top: 0 !important;
+      }
+      html.no-flex-gap #cardScore.hidden {
+        display: none !important;
       }
       html.no-flex-gap #msg {
         display: block !important;
