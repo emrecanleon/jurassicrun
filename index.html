@@ -962,12 +962,12 @@
         gap: 0;
       }
       html.no-flex-gap #scoreRow .hi-group {
-        margin-right: 3px;
+        margin-right: 5px;
         flex-shrink: 0;
         gap: 0;
       }
       html.no-flex-gap #scoreRow .hi-group > * + * {
-        margin-left: 2px;
+        margin-left: 3px;
       }
       html.no-flex-gap #scoreRow .score-hi-label,
       html.no-flex-gap #scoreRow .score-hi,
@@ -980,7 +980,7 @@
       }
       html.no-flex-gap #scoreRow .score-hi-label { font-size: 12px; }
       html.no-flex-gap #scoreRow .score-hi      { font-size: 12px; letter-spacing: 0; margin-left: 2px; }
-      html.no-flex-gap #scoreRow .score-cur     { font-size: 12px; margin: 0 2px; }
+      html.no-flex-gap #scoreRow .score-cur     { font-size: 12px; margin: 0 5px; }
 
       /* Canlar (SVG dino silüetleri) */
       html.no-flex-gap #lives {
@@ -1039,6 +1039,8 @@
         padding: 0 2px;
         text-align: center;
         white-space: normal;
+        overflow-wrap: break-word;
+        word-break: break-word;
         line-height: 1.3;
         margin: 0;
         font-size: 18px;
@@ -2250,8 +2252,10 @@
             : Math.max(5, VW * 0.025);
           const sunCy = Math.max(sunRadius + 12, GROUND_LINE * 0.35);
           const sunBottomCss = (sunCy + sunRadius) * (cssH / VH);
+          const isNoFlex = document.documentElement.classList.contains("no-flex-gap");
+          const minGap = isNoFlex ? 40 : 28;
           const cardTop = Math.round(
-            sunBottomCss + Math.max(28, cssH * 0.06),
+            sunBottomCss + Math.max(minGap, cssH * 0.06),
           );
           document.documentElement.style.setProperty("--card-top", cardTop + "px");
           if (typeof dino !== "undefined") {
