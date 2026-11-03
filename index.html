@@ -3129,11 +3129,27 @@
           curEl.textContent = pad(score);
         }
 
-        function loop() {
-          if (running && !menuOpen && !confirmOpen && !aboutOpen && !paused)
-            update();
-          draw();
+        const STEP_MS = 1000 / 60;
+        let accMs = 0,
+          lastMs = 0;
+
+        function loop(now) {
           requestAnimationFrame(loop);
+          now = now || performance.now();
+          const dtMs = lastMs ? now - lastMs : STEP_MS;
+          lastMs = now;
+          accMs += Math.min(dtMs, 100);
+
+          let steps = 0;
+          while (accMs >= STEP_MS - 1 && steps < 5) {
+            accMs -= STEP_MS;
+            steps++;
+            if (running && !menuOpen && !confirmOpen && !aboutOpen && !paused)
+              update();
+          }
+          if (steps === 5) accMs = 0;
+
+          draw();
         }
 
         document.addEventListener("keydown", (e) => {
@@ -3168,7 +3184,7 @@
         renderLives();
         requestAnimationFrame(() => {
           fitCanvas();
-          loop();
+          requestAnimationFrame(loop);
         });
       })();
     </script>
