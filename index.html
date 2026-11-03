@@ -1061,7 +1061,8 @@
         transform: translateX(-50%);
         display: block !important; /* Flex yerine blok düzen */
         text-align: center !important; /* İçindekileri ortala */
-        min-height: 150px; /* İçerik olmasa bile kart görünsün */
+        height: auto !important;
+        min-height: 0 !important;
       }
       /* ===== ESKİ CİHAZ: kart içi blok arası güvenli boşluk ===== */
       html.no-flex-gap #card > * + * {
@@ -1080,6 +1081,9 @@
       }
       html.no-flex-gap #cardScore.hidden {
         display: none !important;
+        margin: 0 !important;
+        height: 0 !important;
+        line-height: 0 !important;
       }
       html.no-flex-gap #msg {
         display: block !important;
@@ -1926,9 +1930,11 @@
           if (isNewRecord) {
             sc.textContent = pad(score);
             sc.classList.remove("hidden");
+            sc.style.display = "block"; // Görünür yap
           } else {
             sc.textContent = "";
             sc.classList.add("hidden");
+            sc.style.display = "none"; // Gizle
           }
 
           // Buton simgesi: pause → ▶, oyun bitti/rekor → ↻, başlangıç → ▶
