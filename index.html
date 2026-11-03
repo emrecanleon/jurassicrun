@@ -227,14 +227,16 @@
 
       /* JurassicRun temalı yuvarlak buton (siyah/beyaz/gri) */
       html.no-flex-gap #cardBtn {
-        display: flex !important;
+        display: inline-flex !important; /* Flex yerine inline-flex */
         align-items: center !important;
         justify-content: center !important;
-        margin-top: 16px !important;
-        margin-bottom: 0 !important;
+        margin: 16px auto 0 auto !important; /* Üstten 16px boşluk, yatay ortalama */
+        width: 64px !important;
+        height: 64px !important;
         line-height: 1 !important;
         font-size: 28px !important;
         padding: 0 !important;
+        text-align: center !important;
       }
       
       #cardBtn {
@@ -1048,7 +1050,7 @@
       }
 
       /* Mesaj / "Duraklatıldı" ve başlangıç yazısı: taşmadan */
-      /* ===== ESKİ CİHAZ: kart genişliği ===== */
+      /* ===== ESKİ CİHAZ: kart genişliği ve hizalaması ===== */
       html.no-flex-gap #card {
         padding: 8px 4px;
         max-width: 94vw;
@@ -1057,7 +1059,8 @@
         right: auto;
         top: var(--card-top, 42%);
         transform: translateX(-50%);
-        justify-content: flex-start;
+        display: block !important; /* Flex yerine blok düzen */
+        text-align: center !important; /* İçindekileri ortala */
       }
       /* ===== ESKİ CİHAZ: kart içi blok arası güvenli boşluk ===== */
       html.no-flex-gap #card > * + * {
@@ -1066,12 +1069,13 @@
       /* ===== ESKİ CİHAZ: kart puanı (büyük görünsün) ===== */
       html.no-flex-gap #cardScore {
         display: block !important;
-        font-size: clamp(32px, 7vw, 42px) !important;
+        font-size: 42px !important; /* Sabit büyük boyut */
         line-height: 1.1 !important;
         width: auto !important;
         max-width: 100% !important;
         text-align: center !important;
-        margin-top: 0 !important;
+        margin: 0 auto 16px auto !important; /* Altına boşluk, ortala */
+        padding: 0 !important;
       }
       html.no-flex-gap #cardScore.hidden {
         display: none !important;
@@ -1933,39 +1937,6 @@
           } else {
             btn.textContent = "▶";
           }
-
-          // ===== HER İKİ EKRAN İÇİN ZORLA STİL (iPad Air + iPad Mini 2) =====
-          // Skor yazısı: büyük ve ortalı
-          sc.setAttribute(
-            "style",
-            "font-size: clamp(32px, 7vw, 42px) !important; " +
-            "display: " + (isNewRecord ? "block" : "none") + " !important; " +
-            "line-height: 1.1 !important; " +
-            "letter-spacing: 4px !important; " +
-            "font-weight: 800 !important; " +
-            "text-align: center !important; " +
-            "width: 100% !important; " +
-            "margin: 0 0 16px 0 !important; " +
-            "color: var(--fg) !important;"
-          );
-
-          // Buton: her zaman flex ile ortalı
-          btn.setAttribute(
-            "style",
-            "width: 64px !important; " +
-            "height: 64px !important; " +
-            "border-radius: 50% !important; " +
-            "display: flex !important; " +
-            "align-items: center !important; " +
-            "justify-content: center !important; " +
-            "line-height: 1 !important; " +
-            "padding: 0 !important; " +
-            "margin-top: 16px !important; " +
-            "font-size: 28px !important; " +
-            "font-weight: 900 !important; " +
-            "box-sizing: border-box !important; " +
-            "flex-shrink: 0 !important;"
-          );
 
           card.classList.toggle("off", !msgKey);
         }
