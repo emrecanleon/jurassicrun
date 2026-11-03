@@ -1947,6 +1947,17 @@
           }
 
           card.classList.toggle("off", !msgKey);
+
+          // iPad Mini 2 için kartı zorla görünür yap (ilk açılışta görünmeme sorununu çözer)
+          if (!msgKey) {
+            // msgKey boşsa kartı gizle
+            card.style.display = "none";
+          } else {
+            // msgKey varsa kartı görünür yap
+            card.style.display = "block";
+            card.style.visibility = "visible";
+            card.style.opacity = "1";
+          }
         }
 
         function renderMsg() {
