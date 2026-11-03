@@ -1050,7 +1050,7 @@
       }
       /* ===== ESKİ CİHAZ: kart içi blok arası güvenli boşluk ===== */
       html.no-flex-gap #card > * + * {
-        margin-top: 16px;
+        margin-top: 16px !important;
       }
       html.no-flex-gap #msg {
         position: static;
@@ -1065,7 +1065,10 @@
         overflow-wrap: break-word;
         word-break: break-word;
         line-height: 1.35;
-        margin: 0;
+        margin-top: 16px !important;
+        margin-bottom: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
         font-size: 18px;
       }
       /* ===== RTL (Arapça) + ESKİ CİHAZ DÜZELTMESİ ===== */
