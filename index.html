@@ -202,9 +202,10 @@
       }
 
       #card.off {
-        visibility: hidden;
-        opacity: 0;
-        pointer-events: none; 
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important; 
       }
 
       #cardScore {
@@ -1948,15 +1949,19 @@
 
           card.classList.toggle("off", !msgKey);
 
-          // iPad Mini 2 için kartı zorla görünür yap (ilk açılışta görünmeme sorununu çözer)
+          // iPad Mini 2 için kartı ve butonu zorla kontrol et
           if (!msgKey) {
-            // msgKey boşsa kartı gizle
+            // msgKey boşsa (oyun oynanıyor) kartı ve içindekileri tamamen gizle
             card.style.display = "none";
+            card.style.visibility = "hidden";
+            card.style.opacity = "0";
+            card.style.pointerEvents = "none";
           } else {
             // msgKey varsa kartı görünür yap
             card.style.display = "block";
             card.style.visibility = "visible";
             card.style.opacity = "1";
+            card.style.pointerEvents = "auto";
           }
         }
 
