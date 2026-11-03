@@ -1061,6 +1061,7 @@
         transform: translateX(-50%);
         display: block !important; /* Flex yerine blok düzen */
         text-align: center !important; /* İçindekileri ortala */
+        min-height: 150px; /* İçerik olmasa bile kart görünsün */
       }
       /* ===== ESKİ CİHAZ: kart içi blok arası güvenli boşluk ===== */
       html.no-flex-gap #card > * + * {
@@ -1097,6 +1098,7 @@
         line-height: 1.35 !important;
         margin: 16px 0 !important; /* Üstten ve alttan 16px kesin boşluk */
         font-size: 18px !important;
+        min-height: 26px !important; /* Yazı olmasa bile yer kaplasın */
       }
       /* ===== RTL (Arapça) + ESKİ CİHAZ DÜZELTMESİ ===== */
       /* html[dir="rtl"] + no-flex-gap kombinasyonunda öğeleri düzelt */
