@@ -226,6 +226,12 @@
       }
 
       /* JurassicRun temalı yuvarlak buton (siyah/beyaz/gri) */
+      html.no-flex-gap #cardBtn {
+        display: block !important;
+        margin-top: 16px !important;
+        margin-bottom: 0 !important;
+      }
+      
       #cardBtn {
         width: 64px;
         height: 64px;
@@ -1050,26 +1056,25 @@
       }
       /* ===== ESKİ CİHAZ: kart içi blok arası güvenli boşluk ===== */
       html.no-flex-gap #card > * + * {
-        margin-top: 16px !important;
+        margin-top: 0 !important; /* Çakışmayı önlemek için sıfırla */
       }
       html.no-flex-gap #msg {
-        position: static;
-        top: auto;
-        left: auto;
-        transform: none;
-        max-width: 100%;
-        width: auto;
-        padding: 0 2px;
-        text-align: center;
-        white-space: normal;
-        overflow-wrap: break-word;
-        word-break: break-word;
-        line-height: 1.35;
-        margin-top: 16px !important;
-        margin-bottom: 0 !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-        font-size: 18px;
+        display: block !important;
+        position: static !important;
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 0 2px !important;
+        text-align: center !important;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        word-break: break-word !important;
+        line-height: 1.35 !important;
+        margin: 16px 0 !important; /* Üstten ve alttan 16px kesin boşluk */
+        font-size: 18px !important;
       }
       /* ===== RTL (Arapça) + ESKİ CİHAZ DÜZELTMESİ ===== */
       /* html[dir="rtl"] + no-flex-gap kombinasyonunda öğeleri düzelt */
