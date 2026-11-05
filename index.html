@@ -2204,8 +2204,13 @@
         });
         renderSound();
         // ===== CANVAS BOYUTLANDIRMA =====
+        const DINO_X_RATIO = 0.15;
         let VW = 600,
           VH = 150;
+        let GROUND_Y = 120;
+        let GROUND_LINE = GROUND_Y + 25;
+        let dino = { x: 90, y: GROUND_Y, vy: 0, w: 23, h: 25, jumping: false };
+        let obstacles = [];
         function fitCanvas() {
           const narrow = window.innerWidth < 700;
 
@@ -2274,17 +2279,15 @@
               "--card-top",
               cardTopP + "px",
             );
-            if (typeof dino !== "undefined") {
-              dino.y = GROUND_Y;
-              dino.x = Math.round(VW * DINO_X_RATIO);
-            }
+            dino.y = GROUND_Y;
+            dino.x = Math.round(VW * DINO_X_RATIO);
 
             for (const o of obstacles) {
               if (o.type === "cactus") o.y = GROUND_Y + (25 - o.h);
             }
-            if (typeof initStars === "function") initStars();
-            if (typeof initClouds === "function") initClouds();
-            if (typeof initSkyBirds === "function") initSkyBirds();
+            initStars();
+            initClouds();
+            initSkyBirds();
             draw();
             return;
           }
@@ -2333,19 +2336,16 @@
             sunBottomCss + Math.max(28, cssH * 0.03),
           );
           document.documentElement.style.setProperty("--card-top", cardTop + "px");
-          if (typeof dino !== "undefined") {
-            dino.y = GROUND_Y;
-            dino.x = Math.round(VW * DINO_X_RATIO);
-          }
+          dino.y = GROUND_Y;
+          dino.x = Math.round(VW * DINO_X_RATIO);
           for (const o of obstacles) {
             if (o.type === "cactus") o.y = GROUND_Y + (25 - o.h);
           }
 
           // VH değiştiyse bulutları ve yıldızları yeni alana göre yeniden dağıt
-          if (typeof initStars === "function") initStars();
-          if (typeof initClouds === "function") initClouds();
-          if (typeof initSkyBirds === "function") initSkyBirds();
-
+          initStars();
+          initClouds();
+          initSkyBirds();
           draw();
         }
 
@@ -2355,17 +2355,11 @@
         );
 
         // ===== SABİTLER =====
-        let GROUND_Y = 120;
-        let GROUND_LINE = GROUND_Y + 25;
         const GRAVITY_UP = 0.55;
-        const GRAVITY_DOWN = 0.85;
-        const JUMP_V = -10.2;
-        // Dino'nun X konumu: VW'nin %15'i (KanguRun ile aynı)
-        const DINO_X_RATIO = 0.15;
+        const GRAVITY_DOWN = 0.72;
+        const JUMP_V = -11.5;
 
         // ===== DURUM =====
-        let dino = { x: 90, y: GROUND_Y, vy: 0, w: 23, h: 25, jumping: false };
-        let obstacles = [];
         let speed = 5;
         let score = 0;
         let running = false;
@@ -2582,10 +2576,10 @@
         }
 
         function spawnObstacle() {
-          const isBird = Math.random() < 0.25 && score > 300;
+          const isBird = Math.random() < 0.18 && score > 300;
           if (isBird) {
             // Sadece alçak kuşlar (zıplanarak kaçılır)
-            const birdY = GROUND_Y - (25 + Math.random() * 10); // -25 ile -35
+            const birdY = GROUND_Y - (28 + Math.random() * 8); // -28 ile -36
             obstacles.push({
               type: "bird",
               x: 600,
