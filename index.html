@@ -2223,6 +2223,13 @@
           document.body.removeChild(probe);
 
           const isLandscape = window.innerWidth > window.innerHeight;
+          
+          // Mobil yatayda zıplama yüksekliğini kanguru seviyesine indir
+          if (isLandscape && window.innerHeight < 600) {
+            JUMP_V = -10.25; 
+          } else {
+            JUMP_V = -11.75;
+          }
 
           // Mobil yatayda HUD'u içeri çek (safe-area + minimum 14px)
           if (narrow && isLandscape) {
@@ -2357,7 +2364,7 @@
         // ===== SABİTLER =====
         const GRAVITY_UP = 0.55;
         const GRAVITY_DOWN = 0.72;
-        const JUMP_V = -10.75;
+        let JUMP_V = -11.75; // Mobil yatayda dinamik olarak değişecek
 
         // ===== DURUM =====
         let speed = 5;
