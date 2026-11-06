@@ -2262,7 +2262,8 @@
             // VW'yi ekran genişliğine göre ayarla; dino ekranın ~%10'u olsun
             VW = 300;
             // VH'yi orandan türet → canvas ekranı tam kaplar
-            VH = Math.round(VW / aspect);
+            VH = Math.round(VW / aspect);            
+            DINO_PX = 2.3;
 
             // Çok uzun ekranlarda VH'yi sınırla ki zemin çok yukarıda kalmasın
             const maxVH = Math.round(VW / 0.55); // min aspect 0.55
@@ -2304,6 +2305,7 @@
           }
 
           // ===== YATAY / MASAÜSTÜ: dino piksel boyutu hedefi =====
+          DINO_PX = 1.7; // Diğer modlarda normal boyut
           let dinoTargetPx;
           const isLandscapeNow = window.innerWidth > window.innerHeight;
           if (isLandscapeNow && cssH < 600) {
@@ -2838,7 +2840,7 @@
           ".....XXX...XXX.........",
           "....XXX.....XXX........",
         ];
-        const DINO_PX = 1.7;
+        let DINO_PX = 1.7;
 
         function drawDino(fg) {
           const grid = dino.jumping
