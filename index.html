@@ -2207,9 +2207,6 @@
 
         // ===== CANVAS BOYUTLANDIRMA =====
         const DINO_X_RATIO = 0.15;
-        const DINO_PX_BASE = 1.7;
-        let DINO_PX = DINO_PX_BASE;
-        let PORTRAIT_SCALE = 1;
         let VW = 600,
           VH = 150;
         let GROUND_Y = 120;
@@ -2260,13 +2257,6 @@
           // ===== DİKEY MOBİL (portrait): özel strateji =====
           // Dikeyde ekran çok uzun; oyun alanı üstte, alt toprak bandı kalın olur.
           if (aspect < 0.85 && cssW < 700) {
-            // Portrait'e özel ölçek: dino ve engelleri kanguru ile eşitle
-            PORTRAIT_SCALE = 1.45;
-            JUMP_V = -13.0;
-
-            // Dino görsel ölçeğini portrait için büyüt
-            DINO_PX = DINO_PX_BASE * PORTRAIT_SCALE;
-
             // VW'yi ekran genişliğine göre ayarla; dino ekranın ~%10'u olsun
             VW = 300;
             // VH'yi orandan türet → canvas ekranı tam kaplar
@@ -2298,11 +2288,12 @@
               "--card-top",
               cardTopP + "px",
             );
-          dino.y = GROUND_Y;
-          dino.x = Math.round(VW * DINO_X_RATIO);
-          for (const o of obstacles) {
-            if (o.type === "cactus") o.y = GROUND_Y + (25 * PORTRAIT_SCALE - o.h);
-          }
+            dino.y = GROUND_Y;
+            dino.x = Math.round(VW * DINO_X_RATIO);
+
+            for (const o of obstacles) {
+              if (o.type === "cactus") o.y = GROUND_Y + (25 - o.h);
+            }
             initStars();
             initClouds();
             initSkyBirds();
@@ -2311,10 +2302,6 @@
           }
 
           // ===== YATAY / MASAÜSTÜ: dino piksel boyutu hedefi =====
-          // Portrait'ten çıktıysak ölçeği sıfırla
-          PORTRAIT_SCALE = 1;
-          DINO_PX = DINO_PX_BASE;
-
           let dinoTargetPx;
           const isLandscapeNow = window.innerWidth > window.innerHeight;
           if (isLandscapeNow && cssH < 600) {
@@ -2594,17 +2581,16 @@
         }
 
         function spawnObstacle() {
-          const s = PORTRAIT_SCALE;
           const isBird = Math.random() < 0.18 && score > 300;
           if (isBird) {
             // Sadece alçak kuşlar (zıplanarak kaçılır)
-            const birdY = GROUND_Y - (28 + Math.random() * 8) * s; // -28 ile -36
+            const birdY = GROUND_Y - (28 + Math.random() * 8); // -28 ile -36
             obstacles.push({
               type: "bird",
               x: 600,
               y: birdY,
-              w: 41 * s,
-              h: 31 * s,
+              w: 41,
+              h: 31,
             });
           } else {
             const kind = Math.random();
@@ -2613,29 +2599,29 @@
                 type: "cactus",
                 cluster: true,
                 x: 600,
-                y: GROUND_Y + (25 - 42) * s,
-                w: 33 * s,
-                h: 42 * s,
+                y: GROUND_Y + (25 - 42),
+                w: 33,
+                h: 42,
               });
             } else if (kind < 0.6) {
               obstacles.push({
                 type: "cactus",
                 cluster: false,
-                px: 4 * s,
+                px: 4,
                 x: 600,
-                y: GROUND_Y + (25 - 48) * s,
-                w: 32 * s,
-                h: 48 * s,
+                y: GROUND_Y + (25 - 48),
+                w: 32,
+                h: 48,
               });
             } else {
               obstacles.push({
                 type: "cactus",
                 cluster: false,
-                px: 3 * s,
+                px: 3,
                 x: 600,
-                y: GROUND_Y + (25 - 36) * s,
-                w: 24 * s,
-                h: 36 * s,
+                y: GROUND_Y + (25 - 36),
+                w: 24,
+                h: 36,
               });
             }
           }
@@ -2733,8 +2719,8 @@
             if (c.x < -margin) c.x = VW + margin;
           }
 
-          const dh = 37 * PORTRAIT_SCALE; // dino görsel yüksekliği (22 × 1.7)
-          const dy = dino.y - 12 * PORTRAIT_SCALE; // kafa hizası (görselin üst kenarı)
+          const dh = 37; // dino görsel yüksekliği (22 × 1.7)
+          const dy = dino.y - 12; // kafa hizası (görselin üst kenarı)
           const pad = 2;
           if (invuln > 0) invuln--;
           for (let o of obstacles) {
@@ -2851,6 +2837,8 @@
           ".....XXX...XXX.........",
           "....XXX.....XXX........",
         ];
+        const DINO_PX = 1.7;
+
         function drawDino(fg) {
           const grid = dino.jumping
             ? DINO_JUMP
@@ -2896,11 +2884,10 @@
         }
 
         function drawCactus(o, fg) {
-          const s = PORTRAIT_SCALE;
           if (o.cluster) {
-            drawPixels(CACTUS_GRID, o.x, o.y + 6, 3 * s, fg);
-            drawPixels(CACTUS_GRID, o.x + 11, o.y, 3 * s, fg);
-            drawPixels(CACTUS_GRID, o.x + 22, o.y + 8, 3 * s, fg);
+            drawPixels(CACTUS_GRID, o.x, o.y + 6, 3, fg);
+            drawPixels(CACTUS_GRID, o.x + 11, o.y, 3, fg);
+            drawPixels(CACTUS_GRID, o.x + 22, o.y + 8, 3, fg);
             return;
           }
           drawPixels(CACTUS_GRID, o.x, o.y, o.px, fg);
@@ -2948,7 +2935,7 @@
         function drawBird(o, fg) {
           const grid =
             Math.floor(animFrame / 8) % 2 === 0 ? BIRD_UP : BIRD_DOWN;
-          drawPixels(grid, o.x, o.y, 1.8 * PORTRAIT_SCALE, fg);
+          drawPixels(grid, o.x, o.y, 1.8, fg);
         }
 
         // Gökyüzündeki küçük süs kuşları (sola bakar, sola uçar, gece soluk)
@@ -2959,7 +2946,7 @@
           ctx.globalAlpha = alpha;
           ctx.fillStyle = fg;
           const S = RENDER_SCALE;
-          const px = 1.8 * 0.4 * PORTRAIT_SCALE; // piksel boyutu
+          const px = 1.8 * 0.4; // piksel boyutu
           for (const b of skyBirds) {
             const grid =
               Math.floor((frame + b.phase) / 8) % 2 === 0
