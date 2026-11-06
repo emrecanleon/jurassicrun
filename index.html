@@ -2203,6 +2203,11 @@
           }
         });
         renderSound();
+        // ===== SABİTLER =====
+        const GRAVITY_UP = 0.55;
+        const GRAVITY_DOWN = 0.72;
+        let JUMP_V = -11.75; // Mobil yatayda dinamik olarak değişecek
+
         // ===== CANVAS BOYUTLANDIRMA =====
         const DINO_X_RATIO = 0.15;
         let VW = 600,
@@ -2360,11 +2365,6 @@
         window.addEventListener("orientationchange", () =>
           setTimeout(fitCanvas, 150),
         );
-
-        // ===== SABİTLER =====
-        const GRAVITY_UP = 0.55;
-        const GRAVITY_DOWN = 0.72;
-        let JUMP_V = -11.75; // Mobil yatayda dinamik olarak değişecek
 
         // ===== DURUM =====
         let speed = 5;
